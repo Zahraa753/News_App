@@ -2,6 +2,7 @@ import 'package:docdoc/core/customs/custom_button.dart';
 import 'package:docdoc/core/customs/custom_text_field.dart';
 import 'package:docdoc/core/styles/colors.dart';
 import 'package:docdoc/pages/signIn/signin_logic.dart';
+import 'package:docdoc/pages/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,7 @@ class SigninScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Form(
-                  key: signin.formkey,
+                  key: signin.formKey,
                   child: Column(
                     spacing: 15,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -46,15 +47,17 @@ class SigninScreen extends StatelessWidget {
 
                       CustomTextFormField(
                         label: "Email",
-                        controller: signin.emailcontroller,
+                        controller: signin.emailController,
                       ),
                       CustomTextFormField(
                         label: "password",
-                        controller: signin.passwordcontroller,
+                        controller: signin.passwordController,
                       ),
                       Center(
                         child: PrimaryButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            signin.login(context);
+                          },
                           text: "Create Account",
                         ),
                       ),
@@ -76,12 +79,12 @@ class SigninScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => SigninScreen(),
+                                  builder: (context) => SignupScreen(),
                                 ),
                               );
                             },
                             child: Text(
-                              "Sign in",
+                              "Sign up",
                               style: TextStyle(
                                 color: ColorCore.primary,
                                 fontSize: 11,
