@@ -1,8 +1,8 @@
+import 'package:appone/core/customs_helper/Custom_text_field.dart';
+import 'package:appone/core/designing/colors.dart';
+import 'package:appone/features/register/logic/regiter_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:week4_firebase/core/customs_helper/Custom_text_field.dart';
-import 'package:week4_firebase/core/designing/colors.dart';
-import 'package:week4_firebase/features/register/logic/regiter_logic.dart';
 
 class Rigister extends StatelessWidget {
   const Rigister({super.key});
@@ -18,13 +18,18 @@ class Rigister extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(10),
                 child: Form(
+                  key: prov.formkey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     spacing: 10,
                     children: [
                       Text(
-                        "Register ",
-                        style: TextStyle(color: AppColors.secondaryDark),
+                        "Register page",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       CustomTextFormField(
                         controller: prov.namecontroller,
@@ -84,6 +89,17 @@ class Rigister extends StatelessWidget {
                               onPressed: () {
                                 prov.register(context);
                               },
+
+                              color: Colors.blue,
+                              padding: EdgeInsets.all(10),
+                              minWidth: double.infinity,
+                              child: Text(
+                                "Register",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                     ],
                   ),

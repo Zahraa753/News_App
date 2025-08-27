@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,15 +9,16 @@ class RegisterLogic extends ChangeNotifier {
   final passwordcontroller = TextEditingController();
   final confirmpasswordcontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
-  final auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   bool isLoading = false;
+  late Map response;
 
   Future<void> register(BuildContext context) async {
     if (formkey.currentState!.validate()) {
       isLoading = true;
       notifyListeners();
       try {
-        await auth.createUserWithEmailAndPassword(
+        final response = await auth.createUserWithEmailAndPassword(
           email: emailcontroller.text.trim(),
           password: passwordcontroller.text.trim(),
         );
@@ -35,10 +37,17 @@ class RegisterLogic extends ChangeNotifier {
     }
   }
 
-  @override
-  void dispose() {
-    emailcontroller.dispose();
-    passwordcontroller.dispose();
-    super.dispose();
+  Future<void> storeUserData() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(response.values.last)
+        .set({
+          "name": namecontroller.text,
+          "email": emailcontroller.text,
+          "phone": phonecontroller.text,
+          "createdAt": FieldValue.serverTimestamp(),
+        });
   }
+
+  void printdata() {}
 }
